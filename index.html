@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos Luxe | Haute Horlogerie</title>
+    <meta name="description"
+        content="Swiss-made luxury timepieces blending heritage craftsmanship with contemporary design">
+
+    <link rel="preload" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" as="script">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" as="script">
+
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js"></script>
+
+</head>
+
+<body class="antialiased">
+    <div class="custom-cursor" id="custom-cursor"></div>
+    <div class="custom-cursor-follower" id="cursor-follower"></div>
+
+    <div id="preloader" class="fixed inset-0 bg-black z-[9999] flex flex-col items-center justify-center">
+        <svg class="preloader-logo w-32 h-32" viewBox="0 0 100 100">
+            <path class="logo-path" d="M50 10 L60 40 L90 40 L65 60 L75 90 L50 70 L25 90 L35 60 L10 40 L40 40 Z"
+                fill="none" stroke="var(--secondary)" stroke-width="2" />
+        </svg>
+        <div class="text-2xl font-serif text-gray-300 mt-8">Loading Excellence...</div>
+    </div>
+
+    <nav class="fixed w-full z-40 bg-black/90 backdrop-blur-md shadow-sm border-b border-transparent hover:border-secondary transition-all duration-500"
+        id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <a href="#" class="flex items-center focus:outline-none group" aria-label="Chronos Luxe Home">
+                    <div
+                        class="w-10 h-10 flex items-center justify-center bg-secondary text-white font-serif text-xl rounded-full transition-all duration-300 group-hover:rotate-12">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <span
+                        class="ml-3 font-serif text-xl font-semibold text-white group-hover:text-secondary transition-colors duration-300">CHRONOS
+                        LUXE</span>
+                </a>
+
+                <div class="hidden lg:flex items-center space-x-10">
+                    <a href="#home"
+                        class="nav-link text-gray-300 hover:text-secondary transition-colors duration-300 font-medium">
+                        Home
+                    </a>
+                    <a href="#collections"
+                        class="nav-link text-gray-300 hover:text-secondary transition-colors duration-300 font-medium">
+                        Collections
+                    </a>
+                    <a href="#craftsmanship"
+                        class="nav-link text-gray-300 hover:text-secondary transition-colors duration-300 font-medium">
+                        Craftsmanship
+                    </a>
+                    <a href="#heritage"
+                        class="nav-link text-gray-300 hover:text-secondary transition-colors duration-300 font-medium">
+                        Heritage
+                    </a>
+                    <a href="#contact"
+                        class="nav-link text-gray-300 hover:text-secondary transition-colors duration-300 font-medium">
+                        Contact
+                    </a>
+                    <a href="#" class="ml-4 text-secondary hover:text-yellow-700 transition-colors duration-300">
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                    </a>
+                </div>
+
+                <div class="lg:hidden flex items-center space-x-4">
+                    <a href="#" class="text-secondary hover:text-yellow-700 transition-colors duration-300">
+                        <i class="fas fa-shopping-bag text-xl"></i>
+                    </a>
+                    <button id="mobile-menu-button"
+                        class="text-gray-300 focus:outline-none transition-colors duration-300 hover:text-secondary"
+                        aria-label="Toggle menu" aria-expanded="false">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu"
+            class="hidden lg:hidden bg-black/95 backdrop-blur-md py-4 px-6 shadow-lg mobile-menu max-h-0 overflow-hidden transition-all duration-300">
+            <div class="flex flex-col space-y-4">
+                <a href="#home"
+                    class="text-gray-300 hover:text-secondary transition-colors duration-300 font-medium py-2 border-b border-gray-700 focus:text-secondary">
+                    <i class="fas fa-home mr-2"></i> Home
+                </a>
+                <a href="#collections"
+                    class="text-gray-300 hover:text-secondary transition-colors duration-300 font-medium py-2 border-b border-gray-700 focus:text-secondary">
+                    <i class="fas fa-watch mr-2"></i> Collections
+                </a>
+                <a href="#craftsmanship"
+                    class="text-gray-300 hover:text-secondary transition-colors duration-300 font-medium py-2 border-b border-gray-700 focus:text-secondary">
+                    <i class="fas fa-tools mr-2"></i> Craftsmanship
+                </a>
+                <a href="#heritage"
+                    class="text-gray-300 hover:text-secondary transition-colors duration-300 font-medium py-2 border-b border-gray-700 focus:text-secondary">
+                    <i class="fas fa-landmark mr-2"></i> Heritage
+                </a>
+                <a href="#contact"
+                    class="text-gray-300 hover:text-secondary transition-colors duration-300 font-medium py-2 border-b border-gray-700 focus:text-secondary">
+                    <i class="fas fa-envelope mr-2"></i> Contact
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero-container pt-16 gradient-overlay">
+
+        <video autoplay muted loop playsinline class="hero-video parallax">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-wristwatch-on-a-dark-background-40851-large.mp4"
+                type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-overlay"></div>
+        <div class="container mx-auto px-6 hero-content">
+            <div class="hero-badge hover-scale">SINCE 1923</div>
+            <h1 class="hero-title font-serif" id="hero-title">
+                <span class="text-gradient">Haute</span> Horlogerie
+            </h1>
+            <p class="hero-subtitle" id="hero-subtitle">
+                Swiss precision meets timeless elegance in our exclusive collection of handcrafted luxury timepieces.
+            </p>
+            <div class="hero-btn-container">
+                <a href="#collections" class="hero-btn-primary hover-scale magnetic-effect">Discover Collections</a>
+                <a href="#" class="hero-btn-secondary hover-scale magnetic-effect">Book Private Viewing</a>
+            </div>
+        </div>
+
+        <div class="hero-social hidden lg:flex">
+            <a href="#" class="hover-scale" aria-label="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="hover-scale" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="hover-scale" aria-label="Pinterest">
+                <i class="fab fa-pinterest-p"></i>
+            </a>
+        </div>
+
+        <a href="#collections" class="scroll-indicator hover-scale" aria-label="Scroll down">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <div class="section-divider bg-secondary"></div>
+
+    <section id="collections" class="py-24 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <div class="section-subheading font-serif">EXQUISITE SELECTION</div>
+                <h2 class="section-heading font-serif">Signature Collections</h2>
+                <div class="divider-line"></div>
+                <p class="section-description">Each collection embodies our commitment to excellence, blending
+                    traditional craftsmanship with contemporary design.</p>
+            </div>
+
+            <div class="splide" aria-label="Luxury Watch Collections">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide px-4">
+                            <div class="card-3d-wrapper">
+                                <div class="card-3d-inner">
+                                    <div class="collection-card rounded-xl overflow-hidden h-full flex flex-col">
+                                        <div
+                                            class="relative h-96 overflow-hidden bg-gray-900 flex items-center justify-center watch-face">
+                                            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"
+                                                alt="Heritage Collection Watch"
+                                                class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+                                            <div
+                                                class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-8">
+                                                <h3 class="text-3xl font-serif font-semibold text-white">Heritage
+                                                    Collection</h3>
+                                            </div>
+                                        </div>
+                                        <div class="p-8 flex-grow">
+                                            <p class="text-gray-400 mb-6 leading-relaxed">Timeless designs inspired by
+                                                classic watchmaking traditions, updated with modern precision and
+                                                unparalleled attention to detail.</p>
+                                            <div class="flex justify-between items-center">
+                                                <span class="text-xl font-serif font-semibold text-white">From
+                                                    $12,500</span>
+                                                <a href="#"
+                                                    class="inline-flex items-center text-secondary font-medium group focus:text-yellow-700">
+                                                    Discover
+                                                    <i
+                                                        class="fas fa-arrow-right ml-2 group-hover:ml-4 transition-all duration-300"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="splide__slide px-4">
+                            <div class="card-3d-wrapper">
+                                <div class="card-3d-inner">
+                                    <div class="collection-card rounded-xl overflow-hidden h-full flex flex-col">
+                                        <div
+                                            class="relative h-96 overflow-hidden bg-gray-900 flex items-center justify-center watch-face">
+                                            <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"
+                                                alt="Modernist Series Watch"
+                                                class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+                                            <div
+                                                class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-8">
+                                                <h3 class="text-3xl font-serif font-semibold text-white">Modernist
+                                                    Series</h3>
+                                            </div>
+                                        </div>
+                                        <div class="p-8 flex-grow">
+                                            <p class="text-gray-400 mb-6 leading-relaxed">Bold, contemporary designs for
+                                                those who appreciate cutting-edge aesthetics and innovative watchmaking
+                                                technology.</p>
+                                            <div class="flex justify-between items-center">
+                                                <span class="text-xl font-serif font-semibold text-white">From
+                                                    $9,800</span>
+                                                <a href="#"
+                                                    class="inline-flex items-center text-secondary font-medium group focus:text-yellow-700">
+                                                    Discover
+                                                    <i
+                                                        class="fas fa-arrow-right ml-2 group-hover:ml-4 transition-all duration-300"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="splide__slide px-4">
+                            <div class="card-3d-wrapper">
+                                <div class="card-3d-inner">
+                                    <div class="collection-card rounded-xl overflow-hidden h-full flex flex-col">
+                                        <div
+                                            class="relative h-96 overflow-hidden bg-gray-900 flex items-center justify-center watch-face">
+                                            <img src="https://s.alicdn.com/@sc04/kf/Hc47ec1eb0045494ba76e887cf2293f93r.jpg_300x300.jpg"
+                                                alt="Elite Edition Watch"
+                                                class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+                                            <div
+                                                class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-8">
+                                                <h3 class="text-3xl font-serif font-semibold text-white">Elite Edition
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div class="p-8 flex-grow">
+                                            <p class="text-gray-400 mb-6 leading-relaxed">Our most exclusive line,
+                                                featuring limited edition pieces with rare materials and sophisticated
+                                                complications.</p>
+                                            <div class="flex justify-between items-center">
+                                                <span class="text-xl font-serif font-semibold text-white">From
+                                                    $24,900</span>
+                                                <a href="#"
+                                                    class="inline-flex items-center text-secondary font-medium group focus:text-yellow-700">
+                                                    Discover
+                                                    <i
+                                                        class="fas fa-arrow-right ml-2 group-hover:ml-4 transition-all duration-300"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="splide__slide px-4">
+                            <div class="card-3d-wrapper">
+                                <div class="card-3d-inner">
+                                    <div class="collection-card rounded-xl overflow-hidden h-full flex flex-col">
+                                        <div
+                                            class="relative h-96 overflow-hidden bg-gray-900 flex items-center justify-center watch-face">
+                                            <img src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"
+                                                alt="Chronograph Series"
+                                                class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+                                            <div
+                                                class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-8">
+                                                <h3 class="text-3xl font-serif font-semibold text-white">Chronograph
+                                                    Series</h3>
+                                            </div>
+                                        </div>
+                                        <div class="p-8 flex-grow">
+                                            <p class="text-gray-400 mb-6 leading-relaxed">Precision timing instruments
+                                                with advanced mechanical movements and sporty yet elegant designs.</p>
+                                            <div class="flex justify-between items-center">
+                                                <span class="text-xl font-serif font-semibold text-white">From
+                                                    $15,200</span>
+                                                <a href="#"
+                                                    class="inline-flex items-center text-secondary font-medium group focus:text-yellow-700">
+                                                    Discover
+                                                    <i
+                                                        class="fas fa-arrow-right ml-2 group-hover:ml-4 transition-all duration-300"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center mt-20">
+                <a href="#" class="btn-outline hover-scale magnetic-effect">
+                    Explore All Collections
+                    <i class="fas fa-chevron-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="craftsmanship" class="py-24 bg-gray-900 relative overflow-hidden">
+        <div class="absolute -right-40 -top-40 w-80 h-80 bg-secondary/5 rounded-full z-0"></div>
+        <div class="absolute -left-20 -bottom-20 w-64 h-64 bg-secondary/10 rounded-full z-0"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-16 lg:mb-0 lg:pr-16">
+                    <div class="section-subheading font-serif">SWISS MASTERY</div>
+                    <h2 class="section-heading font-serif">The Art of Precision</h2>
+                    <p class="section-description mb-8">Each Chronos Luxe timepiece is the culmination of centuries-old
+                        watchmaking traditions combined with cutting-edge technology. Our master craftsmen in
+                        Switzerland dedicate over 200 hours to perfecting every detail.</p>
+
+                    <div class="space-y-8">
+                        <div class="flex timeline-item">
+                            <div class="flex-shrink-0 mr-6">
+                                <div
+                                    class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
+                                    <i class="fas fa-gem"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-semibold text-xl text-white mb-2">Material Selection</h4>
+                                <p class="text-gray-400">Only the finest 18k gold, platinum, and aerospace-grade
+                                    titanium are selected for our cases, while sapphire crystals ensure scratch
+                                    resistance.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex timeline-item">
+                            <div class="flex-shrink-0 mr-6">
+                                <div
+                                    class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-semibold text-xl text-white mb-2">Movement Assembly</h4>
+                                <p class="text-gray-400">Each mechanical movement is assembled by hand, with components
+                                    finished to exacting standards, including perlage, Geneva stripes, and anglage.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex timeline-item">
+                            <div class="flex-shrink-0 mr-6">
+                                <div
+                                    class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center text-secondary">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-semibold text-xl text-white mb-2">Quality Control</h4>
+                                <p class="text-gray-400">Every watch undergoes rigorous testing for precision, water
+                                    resistance, and power reserve before leaving our atelier.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2 relative">
+                    <div class="relative max-w-lg mx-auto rounded-2xl overflow-hidden shadow-xl hover-scale">
+
+                        <div class="video-container">
+                            <video
+                                poster="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"
+                                class="w-full h-full object-cover" id="craftsmanship-video" controls>
+                                <source
+                                    src="https://assets.mixkit.co/videos/preview/mixkit-close-up-of-a-watch-mechanism-40945-large.mp4"
+                                    type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="absolute inset-0 flex items-center justify-center" id="video-play-button">
+                                <button
+                                    class="w-20 h-20 bg-secondary hover:bg-yellow-700 rounded-full flex items-center justify-center text-white transition-all duration-300 transform hover:scale-110 shadow-lg focus:outline-none focus:ring-2 focus:ring-white group">
+                                    <i
+                                        class="fas fa-play text-3xl ml-1 group-hover:text-4xl transition-all duration-300"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="heritage" class="py-24 bg-black relative overflow-hidden">
+        <div class="absolute -left-20 -top-20 w-64 h-64 bg-secondary/5 rounded-full z-0"></div>
+        <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-secondary/10 rounded-full z-0"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20">
+                <div class="section-subheading font-serif">SINCE 1923</div>
+                <h2 class="section-heading font-serif">A Legacy of Excellence</h2>
+                <div class="divider-line"></div>
+                <p class="section-description">For nearly a century, Chronos Luxe has been synonymous with Swiss
+                    precision and timeless design.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="luxury-border p-8 rounded-xl hover-scale">
+                    <div class="text-5xl font-serif text-secondary mb-4">1923</div>
+                    <h3 class="text-2xl font-serif font-semibold text-white mb-4">Founding</h3>
+                    <p class="text-gray-400">Founded in Geneva by master watchmaker Henri Dubois, Chronos Luxe began as
+                        a small atelier crafting bespoke timepieces for European nobility.</p>
+                </div>
+
+                <div class="luxury-border p-8 rounded-xl hover-scale">
+                    <div class="text-5xl font-serif text-secondary mb-4">1948</div>
+                    <h3 class="text-2xl font-serif font-semibold text-white mb-4">Innovation</h3>
+                    <p class="text-gray-400">Introduced our first self-winding movement, setting new standards for
+                        precision and reliability in automatic watches.</p>
+                </div>
+
+                <div class="luxury-border p-8 rounded-xl hover-scale">
+                    <div class="text-5xl font-serif text-secondary mb-4">2023</div>
+                    <h3 class="text-2xl font-serif font-semibold text-white mb-4">Centenary</h3>
+                    <p class="text-gray-400">Celebrating 100 years of watchmaking excellence with limited edition
+                        Masterpiece Collection.</p>
+                </div>
+            </div>
+
+            <div class="mt-20 bg-gray-800 text-white rounded-2xl overflow-hidden shadow-2xl hover-scale">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <div class="p-12 lg:p-16">
+                        <h3 class="text-3xl font-serif font-bold mb-6">The Masterpiece Collection</h3>
+                        <p class="text-gray-300 mb-8 leading-relaxed">To commemorate our centenary, we present 100
+                            exceptional timepieces, each featuring a unique guilloché dial and our most sophisticated
+                            movement to date.</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#" class="btn-primary hover-scale magnetic-effect">
+                                Discover the Collection
+                            </a>
+                            <a href="#"
+                                class="btn-outline border-white text-white hover:bg-white hover:text-gray-900 magnetic-effect">
+                                Book Private Viewing
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hidden lg:block relative h-full min-h-[300px]">
+
+                        <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80"
+                            alt="Masterpiece Collection" class="absolute inset-0 w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-gray-900 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20">
+                <div class="section-subheading font-serif">CLIENT TESTIMONIALS</div>
+                <h2 class="section-heading font-serif">Collector Experiences</h2>
+                <div class="divider-line"></div>
+            </div>
+
+            <div class="splide" aria-label="Client Testimonials" id="testimonials-slider">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide px-4">
+                            <div class="testimonial-card h-full">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 rounded-full bg-gray-700 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael R."
+                                            class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold text-white">Michael R.</h4>
+                                        <p class="text-gray-400">Collector</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 mb-6 leading-relaxed">"The attention to detail in my Chronos
+                                    Masterpiece is unparalleled. It's not just a watch, it's a work of art that I'll
+                                    treasure for generations. The service was exceptional from start to finish."</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                    </div>
+                                    <div class="text-secondary text-4xl opacity-20 font-serif">"</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="splide__slide px-4">
+                            <div class="testimonial-card h-full">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 rounded-full bg-gray-700 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah L."
+                                            class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold text-white">Sarah L.</h4>
+                                        <p class="text-gray-400">CEO, Tech Startup</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 mb-6 leading-relaxed">"I've owned watches from all the major
+                                    brands, but my Chronos Luxe stands out for its perfect balance of classic elegance
+                                    and modern reliability. The craftsmanship is truly exceptional."</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                    </div>
+                                    <div class="text-secondary text-4xl opacity-20 font-serif">"</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="splide__slide px-4">
+                            <div class="testimonial-card h-full">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 rounded-full bg-gray-700 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="James T."
+                                            class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold text-white">James T.</h4>
+                                        <p class="text-gray-400">Investor</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 mb-6 leading-relaxed">"The customer service at Chronos Luxe is
+                                    as impeccable as their watches. They made the entire purchasing experience seamless
+                                    and memorable. The personal attention to detail is remarkable."</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star-half-alt ml-1"></i>
+                                    </div>
+                                    <div class="text-secondary text-4xl opacity-20 font-serif">"</div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Testimonial 4 -->
+                        <li class="splide__slide px-4">
+                            <div class="testimonial-card h-full">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 rounded-full bg-gray-700 overflow-hidden">
+                                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emma W."
+                                            class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="ml-4">
+                                        <h4 class="font-semibold text-white">Emma W.</h4>
+                                        <p class="text-gray-400">Art Director</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 mb-6 leading-relaxed">"As someone who appreciates both design
+                                    and mechanics, my Chronos Luxe watch is the perfect synthesis of both. The way light
+                                    plays on the guilloché dial is mesmerizing."</p>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                        <i class="fas fa-star ml-1"></i>
+                                    </div>
+                                    <div class="text-secondary text-4xl opacity-20 font-serif">"</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-secondary text-white relative overflow-hidden">
+        <div class="absolute -right-40 -top-40 w-80 h-80 bg-white/5 rounded-full z-0"></div>
+        <div class="absolute -left-40 -bottom-40 w-96 h-96 bg-white/10 rounded-full z-0"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <div class="lg:w-1/2 mb-12 lg:mb-0">
+                    <h3 class="text-3xl font-serif font-bold mb-6">Join Our Exclusive Community</h3>
+                    <p class="text-white/90 text-lg leading-relaxed max-w-lg">Receive invitations to private events,
+                        first access to new collections, and curated content about the art of watchmaking.</p>
+                </div>
+                <div class="lg:w-1/2 w-full">
+                    <form class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex-grow relative">
+                            <input type="email" placeholder="Your email address" required
+                                class="w-full py-4 px-6 rounded-full focus:outline-none text-gray-800 focus:ring-2 focus:ring-white placeholder-gray-500">
+                            <i
+                                class="fas fa-envelope absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                        </div>
+                        <button type="submit"
+                            class="bg-black hover:bg-gray-900 text-white py-4 px-8 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-white shadow-lg transform hover:scale-105">
+                            Subscribe
+                        </button>
+                    </form>
+                    <div class="mt-4 flex items-center">
+                        <div class="custom-checkbox flex items-center">
+                            <input type="checkbox" id="newsletter-consent" class="opacity-0 absolute h-5 w-5">
+                            <span
+                                class="bg-white border-2 border-gray-300 rounded-sm w-5 h-5 flex flex-shrink-0 justify-center items-center mr-2 focus-within:border-secondary">
+                                <svg class="fill-current hidden w-3 h-3 text-secondary pointer-events-none"
+                                    viewBox="0 0 20 20">
+                                    <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
+                                </svg>
+                            </span>
+                            <label for="newsletter-consent" class="text-white/80 text-sm">I agree to receive
+                                communications from Chronos Luxe</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 bg-black relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20">
+                <div class="section-subheading font-serif">PERSONAL SERVICE</div>
+                <h2 class="section-heading font-serif">Experience Chronos Luxe</h2>
+                <div class="divider-line"></div>
+                <p class="section-description">Visit our flagship boutique or schedule a private consultation with our
+                    watch specialists.</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <div class="luxury-border p-10 rounded-xl shadow-sm h-full hover-scale">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-8">Contact Information</h3>
+
+                        <div class="space-y-8">
+                            <div class="flex items-start">
+                                <div
+                                    class="bg-secondary/10 w-12 h-12 rounded-full flex items-center justify-center mr-6 text-secondary">
+                                    <i class="fas fa-map-marker-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white text-lg mb-1">Flagship Boutique</h4>
+                                    <p class="text-gray-400">123 Luxury Avenue<br>Geneva, Switzerland</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="bg-secondary/10 w-12 h-12 rounded-full flex items-center justify-center mr-6 text-secondary">
+                                    <i class="fas fa-phone-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white text-lg mb-1">Phone</h4>
+                                    <p class="text-gray-400">+41 22 123 4567</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="bg-secondary/10 w-12 h-12 rounded-full flex items-center justify-center mr-6 text-secondary">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white text-lg mb-1">Email</h4>
+                                    <p class="text-gray-400">concierge@chronosluxe.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div
+                                    class="bg-secondary/10 w-12 h-12 rounded-full flex items-center justify-center mr-6 text-secondary">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-white text-lg mb-1">Hours</h4>
+                                    <p class="text-gray-400">Monday - Saturday: 10AM - 7PM</p>
+                                    <p class="text-gray-400">Sunday: By appointment only</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-1/2">
+                    <div class="luxury-border p-10 rounded-xl shadow-sm h-full hover-scale">
+                        <h3 class="text-2xl font-serif font-semibold text-white mb-8">Book a Private Consultation
+                        </h3>
+                        <form>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="first-name" class="block text-gray-300 mb-2">First Name *</label>
+                                    <input type="text" id="first-name" required class="form-input">
+                                </div>
+                                <div>
+                                    <label for="last-name" class="block text-gray-300 mb-2">Last Name *</label>
+                                    <input type="text" id="last-name" required class="form-input">
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="email" class="block text-gray-300 mb-2">Email *</label>
+                                <input type="email" id="email" required class="form-input">
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="phone" class="block text-gray-300 mb-2">Phone</label>
+                                <input type="tel" id="phone" class="form-input">
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="date" class="block text-gray-300 mb-2">Preferred Date *</label>
+                                <input type="date" id="date" required class="form-input">
+                            </div>
+
+                            <div class="mb-8">
+                                <label for="message" class="block text-gray-300 mb-2">Special Requests</label>
+                                <textarea id="message" rows="4" class="form-input"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full hover-scale magnetic-effect">
+                                Request Appointment
+                                <i class="fas fa-calendar-check ml-2"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="h-96 w-full bg-gray-900 relative hover-scale">
+        <div class="absolute inset-0 bg-gray-800 opacity-70 z-10 flex items-center justify-center">
+            <button
+                class="bg-secondary hover:bg-yellow-700 text-white font-medium py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg focus:outline-none focus:ring-2 focus:ring-white z-20">
+                <i class="fas fa-map-marker-alt mr-2"></i> View on Map
+            </button>
+        </div>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2761.669914132965!2d6.148072315586268!3d46.20448597911579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478c6521de6a3a21%3A0x30a1a7a1a7a1a7a!2sLuxury%20Avenue%2C%20Geneva%2C%20Switzerland!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+            class="absolute inset-0 z-0"></iframe>
+    </div>
+
+    <footer class="bg-black text-white pt-20 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div
+                            class="w-12 h-12 flex items-center justify-center bg-secondary text-white font-serif text-2xl rounded-full mr-3">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <span class="font-serif text-2xl font-semibold">CHRONOS LUXE</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed">Crafting timeless elegance since 1923. Each Chronos
+                        Luxe timepiece represents the pinnacle of Swiss watchmaking tradition.</p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-300 hover:bg-secondary hover:text-white transition-colors duration-300"
+                            aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-300 hover:bg-secondary hover:text-white transition-colors duration-300"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-300 hover:bg-secondary hover:text-white transition-colors duration-300"
+                            aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-300 hover:bg-secondary hover:text-white transition-colors duration-300"
+                            aria-label="Pinterest">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-serif font-semibold text-xl mb-6">Collections</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Heritage Collection
+                            </a></li>
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Modernist Series
+                            </a></li>
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Elite Edition
+                            </a></li>
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Masterpiece Collection
+                            </a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-serif font-semibold text-xl mb-6">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Our Heritage
+                            </a></li>
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Craftsmanship
+                            </a></li>
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Sustainability
+                            </a></li>
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Careers
+                            </a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-serif font-semibold text-xl mb-6">Client Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Contact Us
+                            </a></li>
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Shipping & Returns
+                            </a></li>
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> Warranty
+                            </a></li>
+                        <li><a href="#" class="footer-link flex items-center">
+                                <i class="fas fa-chevron-right text-xs mr-2 text-secondary"></i> FAQ
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 Chronos Luxe. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <div class="w-16 h-10 bg-white rounded flex items-center justify-center p-1">
+                        <span class="text-xs font-bold text-blue-800">VISA</span>
+                    </div>
+                    <div class="w-16 h-10 bg-white rounded flex items-center justify-center p-1">
+                        <span class="text-xs font-bold text-red-500">MasterCard</span>
+                    </div>
+                    <div class="w-16 h-10 bg-white rounded flex items-center justify-center p-1">
+                        <span class="text-xs font-bold text-blue-500">AMEX</span>
+                    </div>
+                    <div class="w-16 h-10 bg-white rounded flex items-center justify-center p-1">
+                        <span class="text-xs font-bold text-blue-400">PayPal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button id="back-to-top" aria-label="Back to top"
+        class="fixed bottom-8 right-8 w-14 h-14 bg-secondary hover:bg-yellow-700 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 opacity-0 invisible focus:outline-none focus:ring-2 focus:ring-white z-30 group">
+        <i class="fas fa-arrow-up text-xl group-hover:-translate-y-1 transition-transform"></i>
+    </button>
+
+    <a href="https://wa.me/1234567890"
+        class="fixed bottom-8 left-8 w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 z-30 group"
+        aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+
+    <script>
+
+    </script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
